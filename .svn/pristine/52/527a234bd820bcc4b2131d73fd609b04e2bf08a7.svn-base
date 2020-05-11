@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rin.stat.mapper.StatMapper">
+	<!-- 查询客户地区的数据 -->
+	<select id="queryCustomerAreaStat"
+		resultType="com.rin.stat.domain.BaseEntity">
+		select address as name,count(1) as value from bus_customer
+		GROUP BY address
+	</select>
+	<!-- 查询业务员年度数据 -->
+	<select id="queryOpernameYearGradeStat"
+		resultType="com.rin.stat.domain.BaseEntity">
+		select opername as name,sum(price) as value from bus_rent where
+		DATE_FORMAT(createtime,"%Y")=#{value} GROUP BY opername
+	</select>
+</mapper>
